@@ -1,0 +1,51 @@
+﻿@using DevSkill.Inventory.Infrastructure.Identity
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            @{
+                var currentUser = await UserManager.FindByNameAsync(User.Identity?.Name);
+            }
+
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @currentUser.FirstName @currentUser.LastName
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-action="Index" asp-controller="Account" title="Manage">Profile <i class="bi bi-person ml-2"></i></a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-action="Logout" asp-controller="Account" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "" })">
+                        Logout <i class="bi bi-box-arrow-right ml-2"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        @if (ViewContext.RouteData.Values["Controller"].ToString() == "Account" &&
+            ViewContext.RouteData.Values["Action"].ToString() == "Login")
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Account"  asp-action="Register">
+                    Register
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
+                    Login
+                </a>
+            </li>
+        }
+    }
+</ul>

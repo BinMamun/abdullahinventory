@@ -1,0 +1,8 @@
+**/.vs
+**/bin
+**/obj
+**/*.user
+**/Logs/*
+**/images/*
+**/!images/.gitkeep
+

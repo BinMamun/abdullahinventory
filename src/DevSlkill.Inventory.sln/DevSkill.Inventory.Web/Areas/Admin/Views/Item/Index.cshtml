@@ -1,0 +1,174 @@
+﻿@model ItemListModel
+@{
+    ViewData["Title"] = "Item List";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+        <partial name="../Shared/PartialViews/_DeleteModal.cshtml" />
+
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <h3 class="card-title">Item List</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 d-flex justify-content-end">
+                            <a asp-area="Admin" asp-controller="Item" asp-action="Create" class="btn btn-sm btn-info" id="delete-all">
+                                <i class="bi bi-plus"></i>Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- /.card-header -->
+
+                <div class="card-body">
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-12">
+                            
+                            <div class="form-group d-flex justify-content-between">
+                                <div>
+                                    <button id="showAll" class="btn btn-sm btn-info px-5 mr-2">
+                                        All
+                                    </button>
+                                    <button id="belowMinimumStockButton" data-state="false"
+                                            class="btn btn-sm btn-outline-info px-2 mr-2">
+                                        Below Minimum Stock
+                                    </button>
+                                    <button id="active" data-state="false"
+                                            class="btn btn-sm btn-outline-info px-4 mr-2">
+                                        Active
+                                    </button>
+                                    <button id="inactive" data-state="false"
+                                            class="btn btn-sm btn-outline-info px-4">
+                                        Inactive
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button"
+                                            class="btn btn-sm btn-info dropdown-toggle px-5"
+                                            data-toggle="dropdown">
+                                        Bulk Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a data-toggle="modal" data-target="#delete-modal"
+                                               asp-area="Admin" asp-controller="Item" 
+                                               asp-action="DeleteAll"
+                                               class="btn btn-sm dropdown-item" 
+                                               id="delete-button">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>   
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="SearchItem.ItemName"
+                                       class="form-control form-control-sm"
+                                       placeholder="Item Name" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="SearchItem.Barcode"
+                                       class="form-control form-control-sm"
+                                       placeholder="Barcode" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="SearchItem.CategoryId"
+                                        asp-items="Model.Categories"
+                                        class="form-control form-control-sm">
+                                    <option selected value="">All Category</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="SearchItem.PriceFrom"
+                                       class="form-control form-control-sm"
+                                       placeholder="Price starts from" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="SearchItem.PriceTo"
+                                       class="form-control form-control-sm"
+                                       placeholder="Price to" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="SearchItem.WarehouseId"
+                                        asp-items="Model.Warehouses"
+                                        class="form-control form-control-sm">
+                                    <option selected value="">All Warehouse</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="itemTable" class="table table-sm table-hover">
+                        <thead class="table-header">
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="select-all" class="mx-2">
+                                </th>
+                                <th>Picture</th>
+                                <th>Item Name</th>
+                                <th>Barcode</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Tax</th>
+                                <th>Minimum Stock Quantity Hidden Column</th>
+                                <th>In Stock</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section styles {
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+    <link href="~/css/item.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <!-- DataTables  & Plugins -->
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/itemindex.js"></script>
+}

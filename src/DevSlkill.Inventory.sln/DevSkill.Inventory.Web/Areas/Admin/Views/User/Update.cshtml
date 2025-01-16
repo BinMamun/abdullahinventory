@@ -1,0 +1,108 @@
+﻿@model UserUpdateModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container-fluid">
+    <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12">
+            <div class="card-header">
+                <h3 class="card-title">@ViewData["Title"]</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form asp-antiforgery="true" asp-area="Admin" asp-controller="User" asp-action="Update" method="post" id="updateForm">
+                <input type="hidden" asp-for="Id" />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 border-right">
+                            <div class="form-group">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" type="text" class="form-control"
+                                       id="firstName" name="firstName"
+                                       placeholder="First Name">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" type="text" class="form-control"
+                                       id="lastName" name="lastName"
+                                       placeholder="Last Name">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" type="text" class="form-control"
+                                       id="email" name="email"
+                                       placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" type="text" class="form-control" id="userName"
+                                       name="userName" placeholder="User Name" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6 border-right">
+                                    <h4 class="display-5">Role Permissions</h4>
+
+                                    @foreach (var role in Model.Roles)
+                                    {
+                                        <div class="custom-control custom-checkbox mb-1">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   name="UserRoles" value="@role.Name"
+                                                   id="@role.Name"
+                                            @(Model.UserRoles.Contains(role.Name) ?
+                                                "checked" : "") />
+                                            <label class="custom-control-label" for="@role.Name">
+                                                @role.Name</label>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="display-5">Application Permissions</h4>
+
+                                    @foreach (var permission in Model.Permissions)
+                                        {
+                                        <div class="custom-control custom-checkbox mb-1">
+                                            <input type="checkbox"
+                                                   id="@permission.ClaimType"
+                                                   class="custom-control-input"
+                                                   name="Permissions[@Model.Permissions.IndexOf(permission)].ClaimValue"
+                                                   value="true"
+                                            @(permission.ClaimValue ? "checked" : "") />
+                                            <label class="custom-control-label"
+                                                   for="@permission.ClaimType">
+                                                @permission.ClaimType</label>
+                                        </div>
+                                        <input type="hidden"
+                                               name="Permissions[@Model.Permissions.IndexOf(permission)].ClaimValue"
+                                               value="false" />
+                                        <input type="hidden"
+                                               name="Permissions[@Model.Permissions.IndexOf(permission)].ClaimType"
+                                               value="@permission.ClaimType" />
+                                        }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-sm btn-info px-3 mr-4">Submit</button>
+                    <a type="button" class="btn btn-sm btn-danger px-3"
+                       asp-area="Admin" asp-controller="User" asp-action="Index">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/userform.js"></script>
+}

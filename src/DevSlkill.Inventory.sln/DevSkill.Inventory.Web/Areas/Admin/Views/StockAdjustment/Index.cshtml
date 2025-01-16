@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Stock Adjustment";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+        @* <partial name="./_TransferDetailsModalView.cshtml" /> *@
+        <partial name="../Shared/PartialViews/_DeleteModal.cshtml" />
+
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <h3 class="card-title">Stock Adjustments</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 d-flex justify-content-end">
+                            <a asp-area="Admin" asp-controller="StockAdjustment" asp-action="Create"
+                               class="btn btn-sm btn-info">
+                                <i class="bi bi-plus"></i>Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="stockAdjustmentTable" class="table table-sm table-hover">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Date</th>
+                                <th>Item Name</th>
+                                <th>Warehouse</th>
+                                <th>Quantity</th>
+                                <th>Reason</th>
+                                <th>Adjusted By</th>
+                                <th>Note</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section styles {
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables  & Plugins -->
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/stockadjustmentindex.js"></script>
+}

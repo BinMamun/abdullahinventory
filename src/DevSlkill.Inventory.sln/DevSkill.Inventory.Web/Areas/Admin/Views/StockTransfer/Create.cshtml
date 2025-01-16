@@ -1,0 +1,132 @@
+﻿@model StockTransferCreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+        <div class="d-flex justify-content-center">
+            <div class="col-md-12">
+                <div class="card-header">
+                    <h3 class="card-title">Create Stock Transfer</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form asp-antiforgery="true" asp-area="Admin" asp-controller="StockTransfer"
+                      asp-action="Create" method="post" id="create-form">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="TransferDate"></label>
+                                    <div class="input-group input-group-sm date">
+                                        <input class="form-control form-control-sm"
+                                               type="text" asp-for="TransferDate"
+                                               id="select-date" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="calendar-icon">
+                                                <i class="bi bi-calendar-fill"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="FromWarehouseId"></label>
+                                    <select asp-for="FromWarehouseId" asp-items="Model.Warehouses"
+                                            class="form-control form-control-sm" id="fromWarehouseId"
+                                            name="fromWarehouseId">
+                                        <option selected value="">Select Warehouse From</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="ToWarehouseId"></label>
+                                    <select asp-for="ToWarehouseId" asp-items="Model.Warehouses"
+                                            class="form-control form-control-sm" id="toWarehouseId"
+                                            name="toWarehouseId">
+                                        <option selected value="">Select Warehouse To</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-none" id="itemSearchTable">
+                            <table id="stockTransferTable" class="table">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th class="col-6">Item</th>
+                                        <th class="text-right">Available Stock In Hand</th>
+                                        <th class="col-2 text-center">Transferred Quantity</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="stockTransferBody">
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-right">
+                                            <strong>Total:</strong></td>
+                                        <td class="totalTransferredQuantity text-right">
+                                            <strong></strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="button" id="addRow" class="btn btn-sm btn-info">
+                                        <i class="bi bi-plus"></i>Add Item
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label asp-for="Note"></label>
+                            <textarea asp-for="Note" type="text"
+                                      class="form-control form-control-sm"
+                                      placeholder="Note"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-info px-3 mr-4">Submit</button>
+                        <a type="button" class="btn btn-sm btn-danger px-3"
+                           asp-area="Admin" asp-controller="StockTransfer" asp-action="Index">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css" />
+}
+
+@section Scripts {
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/stocktransferform.js"></script>
+}

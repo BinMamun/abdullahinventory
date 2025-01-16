@@ -1,0 +1,35 @@
+﻿@model MeasurementUnitCreateModel
+
+<section>
+    <!-- Modal -->
+    <div class="modal fade" id="createMeasurementUnitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header default-background-color text-center align-items-center">
+                    <h4 class="modal-title text-light w-100">
+                        Create a new item category</h4>
+                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-lg red-color"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form asp-antiforgery="true" asp-area="Admin" asp-controller="MeasurementUnit" asp-action="Create" method="post" id="create-form">
+                            <div class="form-group">
+                                <input asp-for="Name" type="text" class="form-control"
+                                id="name" name="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Symbol" type="text" class="form-control"
+                                   id="symbol" name="symbol" placeholder="Symbol">
+                            </div>
+                        <!-- /.modal-body -->
+                        <div class="modal-footer">
+                            <button type="button" id="modal_close" class="btn btn-sm btn-danger px-3" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-info px-3">Submit</button>
+                        </div>
+                    </form>
+                </div>               
+            </div>
+        </div>
+    </div>
+</section>

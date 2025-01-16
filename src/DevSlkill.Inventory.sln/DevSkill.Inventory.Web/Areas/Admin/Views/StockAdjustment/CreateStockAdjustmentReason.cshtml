@@ -1,0 +1,30 @@
+﻿<section>
+    <!-- Modal -->
+    <div class="modal fade" id="createReasonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header default-background-color text-center align-items-center">
+                    <h4 class="modal-title text-light w-100">
+                        Create a new adjustment reason
+                    </h4>
+                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-lg red-color"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form asp-antiforgery="true" method="post" id="reason-create-form" action="">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="reasonName" name="reasonName" placeholder="Reason Name">
+                        </div>
+                        <!-- /.modal-body -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal_close" class="btn btn-sm btn-danger px-3" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="save-reason-btn" class="btn btn-sm btn-info px-4">
+                        Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

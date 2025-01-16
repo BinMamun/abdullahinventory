@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Tax";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <h3 class="card-title">Tax category list</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="taxTable" class="table table-sm table-hover">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-8">Name</th>
+                                <th class="col-4">Parcentage (%)</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section styles {
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables  & Plugins -->
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLte/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLte/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script>
+        $(function () {
+            $("#taxTable").DataTable({
+                dom: 'rti',
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "/Admin/Tax/GetTaxJsonData",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        d.SearchItem = {
+                        };
+                        return JSON.stringify(d);
+                    }
+                }
+            });            
+        });
+    </script>
+}

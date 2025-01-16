@@ -1,0 +1,69 @@
+﻿@model ServiceUpdateModel
+@{
+    ViewData["Title"] = "Edit Service";
+}
+
+<div class="container-fluid">
+    <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12">
+            <div class="card-header">
+                <h3 class="card-title">Edit Service</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form asp-antiforgery="true" asp-area="Admin" asp-controller="Service" asp-action="Update" method="post" id="updateForm">
+                <input type="hidden" asp-for="Id" />
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="ServiceName"></label>
+                        <input asp-for="ServiceName" type="text" class="form-control"
+                               id="serviceName" name="serviceName"
+                               placeholder="Service Name">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TaxId"></label>
+                        <select asp-for="TaxId" asp-items="Model.Taxes"
+                                class="form-control" id="taxId" name="taxId">
+                            <option value="">Select a tax category</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="BuyingPrice"></label>
+                                <input asp-for="BuyingPrice" type="text"
+                                       class="form-control" placeholder="Buying Price">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="SellingPrice"></label>
+                                <input asp-for="SellingPrice" type="text"
+                                       class="form-control" placeholder="Selling Price">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" type="text" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-sm btn-info px-3 mr-4">Submit</button>
+                    <a type="button" class="btn btn-sm btn-danger px-3"
+                       asp-area="Admin" asp-controller="Service" asp-action="Index">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/serviceformvalidation.js"></script>
+}

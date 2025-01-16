@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - DevSkill.Inventory.Web</title>
+    <!--Montserrat Font-->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Bootstrapicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLte/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/summernote/summernote-bs4.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link href="~/css/site.css" rel="stylesheet" />
+    @await RenderSectionAsync("styles", required: false)
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper body">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="~/AdminLte/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light shadow-sm bg-white rounded">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+            <partial name="../../../.././Views/Shared/_LoginPartial" />
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-light-info elevation-4">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <partial name="./PartialViews/_UsernamePartialView.cshtml" />
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item menu-open">
+                            <a class="nav-link active" asp-area="Admin" asp-controller="Dashboard" 
+                                asp-action="Index">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-archive text-info"></i>
+                                <p>
+                                    Items / Services
+                                    <i class="fas fa-angle-down right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Item" asp-action="Index"
+                                       asp-area="Admin" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Item" ? "active" : "")">
+                                        <i class="far nav-icon"></i>
+                                        <p>Item List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Service" asp-action="Index"
+                                       asp-area="Admin" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Service" ? "active" : "")">
+                                        <i class="far nav-icon"></i>
+                                        <p>Service List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Category"
+                                       asp-action="Index" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Category" ? "active" : "")">
+                                        <i class="far nav-icon"></i>
+                                        <p>Item Categories</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="MeasurementUnit"
+                                       asp-action="Index" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeasurementUnit" ? "active" : "")">
+                                        <i class="far nav-icon"></i>
+                                        <p>Measurement Units</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Tax"
+                                       asp-action="Index" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Tax" ? "active" : "")">
+                                        <i class="far nav-icon"></i>
+                                        <p>Taxes</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-shop text-info"></i>
+                                <p>
+                                    Stocks
+                                    <i class="right fas fa-angle-down"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Warehouse" asp-action="Index"
+                                       class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Warehouse" ? "active" : "")">
+                                        <i class="nav-icon fas"></i>
+                                        <p>Warehouse</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="StockList" asp-action="Index"
+                                       class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "StockList" ? "active" : "")">
+                                        <i class="nav-icon fas"></i>
+                                        <p>Stock List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="StockAdjustment"
+                                       asp-action="Index"
+                                       class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "StockAdjustment" ? "active" : "")">
+                                        <i class="nav-icon fas"></i>
+                                        <p>Stock Adjustment</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="StockTransfer" 
+                                    asp-action="Index"
+                                       class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "StockTransfer" ? "active" : "")">
+                                        <i class="nav-icon fas"></i>
+                                        <p>Stock Transfer</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @if (User.IsInRole("Super Admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon bi bi-tools text-info"></i>
+                                    <p>
+                                        Tools
+                                        <i class="fas fa-angle-down right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="User"
+                                           asp-action="Index"
+                                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "User" ? "active" : "")">
+                                            <i class="nav-icon fas"></i>
+                                            <p>Users</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Role"
+                                           asp-action="Index"
+                                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Role" ? "active" : "")">
+                                            <i class="nav-icon fas"></i>
+                                            <p>Roles</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/AdminLte/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/AdminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+        $(document).ready(function () {
+            $('.nav-item').each(function () {
+                if ($(this).find('.nav-link.active').length > 0) {
+                    $(this).addClass('menu-is-opening menu-open');
+                } else {
+                    $(this).removeClass('menu-is-opening menu-open');
+                }
+            });
+        });
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/AdminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/AdminLte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/AdminLte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/AdminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/AdminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/AdminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/AdminLte/plugins/moment/moment.min.js"></script>
+    <script src="~/AdminLte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/AdminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/AdminLte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/AdminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    @await RenderSectionAsync("scripts", required: false);
+    <script src="~/js/site.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/AdminLte/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/AdminLte/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/AdminLte/js/pages/dashboard.js"></script>
+</body>
+</html>
+

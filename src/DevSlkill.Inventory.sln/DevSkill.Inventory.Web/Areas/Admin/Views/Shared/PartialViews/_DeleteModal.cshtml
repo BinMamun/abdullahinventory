@@ -1,0 +1,31 @@
+﻿<section>
+    <!-- Modal -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                    <h4 class="modal-title ml-2">Warning</h4>
+                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-form" action="" method="post" asp-antiforgery="true">
+                        <div class="modal-body">
+                            <p style="font-size:medium;">Do you confirm to delete this?</p>
+                            <input type="hidden" id="deleteId" value="" name="id" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger 
+                                font-weight-bold">YES</button>
+                            <button type="button" id="modal_close" 
+                                class="btn btn-primary font-weight-bold" 
+                                data-dismiss="modal">NO</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

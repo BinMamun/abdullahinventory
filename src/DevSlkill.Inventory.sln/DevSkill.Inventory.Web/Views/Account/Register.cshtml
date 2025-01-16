@@ -1,0 +1,90 @@
+﻿@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<div class="row gx-lg-5 align-items-center mb-5">
+    <div class="col-lg-7 mb-3" style="z-index: 10">
+        <h1 class="my-3 display-5 fw-bold ls-tight" style="color: #050057">
+            Control Your Goods <br />
+            <span class="text-info">Conquer Your Goals</span>
+        </h1>
+        <p class="mb-4 text-dark opacity-100" style="text-align:justify;">
+            Unlock your business potential through Devskill Inventory app
+        </p>
+    </div>
+
+    <div class="col-lg-4 mb-5 mb-lg-0 position-relative">
+        <div class="card card-background">
+            <div class="card-body py-2 px-md-4">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                    asp-antiforgery="true" asp-action="Register" asp-controller="Account">
+                    <h2 class="text-light text-center">Create a new account</h2>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="FirstName" class="form-control form-control-sm" aria-required="true" placeholder="First name" />
+                                <label asp-for="FirstName"></label>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="LastName" class="form-control form-control-sm" aria-required="true" placeholder="Last name" />
+                                <label asp-for="LastName">Last Name</label>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Email">Email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="UserName" class="form-control" aria-required="true" placeholder="First name" />
+                        <label asp-for="UserName"></label>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Password">Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-info text-light">
+                        Register</button>
+                </form>
+                <div class="mt-2">
+                    <p class="text-light">
+                        Already have an account? <a asp-controller="Account" asp-action="Login" class="text-white-50 fw-bold">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card-background {
+            background-color: #020024;
+        }
+    </style>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

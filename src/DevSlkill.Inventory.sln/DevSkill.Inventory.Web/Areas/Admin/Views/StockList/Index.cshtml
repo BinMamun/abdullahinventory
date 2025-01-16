@@ -1,0 +1,120 @@
+﻿@model StockListDtoModel
+@{
+    ViewData["Title"] = "Stock List";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <!-- /.card-header -->
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <h3 class="card-title">Stock List</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 d-flex justify-content-end">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+
+
+                <div class="card-body">
+                    <!-- /.Search Options -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <button id="showAll" class="btn btn-sm btn-info px-5 mr-2">
+                                    All
+                                </button>
+                                <button id="belowMinimumStockButton" data-state="false"
+                                    class="btn btn-sm btn-outline-info px-2 mr-2">
+                                    Below Minimum Stock
+                                </button>
+                                <button id="stockGreaterThanZeroButton" data-state="true"
+                                    class="btn btn-sm btn-info px-2 mr-2">
+                                    Show only items in Stock
+                                </button>
+                                <button id="includeZeroStockButton" data-state="false"
+                                    class="btn btn-sm btn-outline-info px-2">
+                                    Include Items With Zero Stock
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" asp-for="SearchItem.ItemName"
+                                       class="form-control form-control-sm"
+                                       placeholder="Item Name" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" asp-for="SearchItem.Barcode"
+                                       class="form-control form-control-sm"
+                                       placeholder="Barcode" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select asp-for="SearchItem.CategoryId"
+                                        asp-items="Model.Categories"
+                                        class="form-control form-control-sm">
+                                    <option selected value="">All Category</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select asp-for="SearchItem.WarehouseId"
+                                        asp-items="Model.Warehouses"
+                                        class="form-control form-control-sm">
+                                    <option selected value="">All Warehouse</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.Search Options -->
+
+                    <table id="stockListTable" class="table table-sm table-hover">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Barcode</th>
+                                <th>Category</th>
+                                <th>Warehouse</th>
+                                <th>MinimumStockHiddendColumn</th>
+                                <th>In Hand</th>
+                                <th>Weighted Avg Cost</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section styles {
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables  & Plugins -->
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/stocklistindex.js"></script>
+}

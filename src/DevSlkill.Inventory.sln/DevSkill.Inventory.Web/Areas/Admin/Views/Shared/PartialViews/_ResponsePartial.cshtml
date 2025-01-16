@@ -1,0 +1,20 @@
+﻿@using DevSkill.Inventory.Infrastructure.Extensions
+
+@if (TempData.Peek<ResponseModel>("ResponseMessage") != null)
+{
+    var response = TempData.Get<ResponseModel>("ResponseMessage");
+
+    <div class="toast-container position-fixed mt-5">
+        <div id="responseToast" class="toast bg-@(response?.Type.ToString().ToLower())" role="alert" aria-live="assertive" aria-atomic="true" style="width: 220px;">
+            <div class="toast-header justify-content-between">
+                <strong class="me-auto">@(response?.Type.ToString())</strong>
+                <button type="button" class="close" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                @response?.Message
+            </div>
+        </div>
+    </div>
+}

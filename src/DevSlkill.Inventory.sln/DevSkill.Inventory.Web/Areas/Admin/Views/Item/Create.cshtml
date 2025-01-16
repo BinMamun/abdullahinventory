@@ -1,0 +1,256 @@
+﻿@model ItemCreateModel
+
+@{
+    ViewData["Title"] = "Create new item";
+}
+
+<div class="container-fluid">
+    <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12">
+            <div class="card-header">
+                <h3 class="card-title">Create New Item</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form enctype="multipart/form-data" asp-antiforgery="true" asp-area="Admin"
+                  asp-controller="Item" asp-action="Create" method="post" id="createForm">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="ItemName"></label>
+                        <input asp-for="ItemName" type="text" class="form-control form-control-sm"
+                               id="itemName" name="itemName"
+                               placeholder="Item Name">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="CategoryId"></label>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <select asp-for="CategoryId" asp-items="Model.Categories"
+                                                class="form-control form-control-sm"
+                                                id="categoryId" name="categoryId">
+                                            <option selected value="">Select an item category</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 d-flex justify-content-end">
+                                        <a data-toggle="modal" data-target="#createCategoryModal"
+                                           asp-area="Admin" asp-controller="Category"
+                                           asp-action="Create" class="btn btn-sm btn-info">
+                                            <i class="bi bi-plus"></i>Add
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="MeasurementUnitId"></label>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <select asp-for="MeasurementUnitId"
+                                                asp-items="Model.MeasurementUnits"
+                                                id="measurementUnitId"
+                                                class="form-control form-control-sm"
+                                                name="measurementUnitId">
+                                            <option selected value="">
+                                                Select a item Measurement Unit
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 d-flex justify-content-end">
+                                        <a data-toggle="modal"
+                                           data-target="#createMeasurementUnitModal" asp-area="Admin"
+                                           asp-controller="MeasurementUnit" asp-action="Create"
+                                           class="btn btn-sm btn-info">
+                                            <i class="bi bi-plus"></i>Add
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TaxId"></label>
+                        <select asp-for="TaxId" asp-items="Model.Taxes"
+                                class="form-control form-control-sm" id="taxId" name="taxId">
+                            <option selected value="">Select a tax category</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="BuyingPrice"></label>
+                                <input asp-for="BuyingPrice" type="text" value="" name="buyingPrice"
+                                       id="buyingPrice" placeholder="Buying Price"
+                                       class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="SellingPrice"></label>
+                                <input asp-for="SellingPrice" type="text" value="" name="sellingPrice"
+                                       id="sellingPrice" placeholder="Selling Price"
+                                       class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="MinimumStockQuantity"></label>
+                                <input asp-for="MinimumStockQuantity" type="text"
+                                          class="form-control form-control-sm"
+                                       placeholder="Minimum Stock Quantity" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Barcode"></label>
+                                <div class="row">
+                                    <div class="col-sm-8 form-outline">
+                                        <input asp-for="Barcode" type="text" id="barcode-field"
+                                               class="form-control form-control-sm"
+                                               placeholder="Barcode">
+                                        <img src="~/icons/barcode.png" />
+                                    </div>
+                                    <div class="col-sm-4 d-flex justify-content-end px-n3">
+                                        <button type="button" class="btn btn-sm btn-info"
+                                                id="generate-barcode">
+                                            Generate Barcode
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <textarea asp-for="Description" type="text"
+                                          class="form-control form-control-sm"
+                                          placeholder="Description"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="picture-label">
+                                        <i class="fas fa-image"></i>
+                                        <input asp-for="Picture" type="file" id="image"
+                                               accept="image/*" class="item-image">Upload Picture
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <div class="custom-control custom-checkbox">
+                                        <input asp-for="IsActive" 
+                                        class="custom-control-input custom-control-input-info"
+                                               type="checkbox" checked>
+                                        <label asp-for="IsActive" class="custom-control-label">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview hidden mt-4">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-8">
+                                        <img id="imagePreview" class="image-preview" src="#"
+                                             alt="Selected Image">
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="button" class="btn btn-close close-preview"
+                                                aria-label="Close" id="close-preview">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title text-info">Stock Details</h3>
+                                    <div class="card-text">
+                                        <hr />
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <span>Cost Per Unit(&#2547;)</span>
+                                                </div>
+                                                <div class="col-6">
+                                                    <input asp-for="CostPerUnit" type="text"
+                                                    id="cost-per-unit" 
+                                                    class="form-control form-control-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @{
+                                            for (int i = 0; i < Model.Warehouses.Count; i++)
+                                            {
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                    <span>@Model.Warehouses[i].WarehouseName</span>
+                                                        <input type="hidden"                                                         asp-for="Warehouses[i].WarehouseId" />
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input asp-for="Warehouses[i].StockQuantity"
+                                                        type="text"                                                                 class="form-control form-control-sm" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            }
+                                        }
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <span>As Of Date</span>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm date">
+                                                    <input class="form-control form-control-sm"
+                                                           type="text" asp-for="AsOfDate"
+                                                               id="select-date" required>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"
+                                                            id="calendar-icon">
+                                                                <i class="bi bi-calendar-fill"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="row">
+                            <button type="submit" name="action" value="save"
+                                class="btn btn-sm btn-info px-4 mr-4">Save</button>
+
+                            <button type="submit" name="action" value="saveAndNew"
+                                class="btn btn-sm btn-info mr-4">Save & New</button>
+
+                            <a type="button" class="btn btn-sm btn-danger px-4"
+                               asp-area="Admin" asp-controller="Item" asp-action="Index">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/css/item.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css"/>
+}
+
+@section Scripts {
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+    <script src="~/js/itemformjs.js"></script>
+}

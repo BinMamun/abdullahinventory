@@ -1,0 +1,66 @@
+html {
+    font-size: 14px;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 13px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.body {
+    font-size: 13px;
+    margin-bottom: 60px;
+}
+
+.dataTables_scrollHeadInner, .table {
+    width: 100% !important
+}
+
+.table-header {
+    color:white;
+    background-color: #17a2b8;
+}
+
+.default-color {
+    color: #17a2b8;
+}
+
+.red-color {
+    color: #DE3163;
+}
+
+.default-background-color {
+    background-color: #17a2b8;
+}
+
+.red-background-color {
+    background-color: #DE3163;
+}
+
+.nav-link.active {
+    font-weight: bold;
+}
+
+.toast-container {
+    position: fixed !important;
+    right: 20px;
+    z-index: 11;
+}
+
+.input-group-append {
+    cursor: pointer;
+}

@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Measurement Unit";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <partial name="./_CreateMeasurementUnitForm.cshtml" />
+        <partial name="./_UpdateMeasurementUnitForm.cshtml" />
+        <partial name="../Shared/PartialViews/_ResponsePartial.cshtml" />
+        <partial name="../Shared/PartialViews/_DeleteModal.cshtml" />
+
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <h3 class="card-title">Measurement unit list</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 d-flex justify-content-end">
+                            <a data-toggle="modal" data-target="#createMeasurementUnitModal" asp-area="Admin" asp-controller="MeasurementUnit" asp-action="Create" class="btn btn-sm btn-info"><i class="bi bi-plus"></i>Add</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="measurementUnitTable" class="table table-sm table-hover">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-6">Name</th>
+                                <th class="col-5">Symbol</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+@section styles {
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables  & Plugins -->
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLte/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLte/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <partial name="../Shared/PartialViews/_ValidationScriptsPartial.cshtml" />
+
+    <script src="~/js/mesurementunitformvalidation.js"></script>
+
+    <script>
+        $(function () {
+            $("#measurementUnitTable").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "/Admin/MeasurementUnit/GetMeasurementUnitJsonDataIndex",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        d.SearchItem = {
+                        };
+                        return JSON.stringify(d);
+                    }
+                },
+                columnDefs: [
+                    {
+                        orderable: false,
+                        targets: 2,
+                        render: function (data, type, row) {
+                            return `
+                            <button type="submit" class="btn btn-sm show-bs-modal"
+                            data-toggle="modal" data-target="#updateMeasurementUnit"
+                            value='${data}' data-name='${row[0]}' data-symbol='${row[1]}' 
+                            data-id='${data}' title="Edit">
+                            <i class="default-color bi bi-pencil-square"></i>
+                            </button>
+
+                            <button type="submit" class="btn show-bs-modal"
+                            data-toggle="modal" data-target="#delete-modal"
+                            data-id='${data}' value='${data}' title="Delete">
+                            <i class="red-color bi bi-trash"></i></button>`;
+                        }
+                    }
+                ],
+            });
+
+            $(".alert").fadeTo(4000, 0).slideUp(100, function () {
+                $(this).remove();
+            });
+
+            $('#measurementUnitTable').on('click', '.show-bs-modal', function (event) {
+
+                let id = $(this).data("id");
+                let name = $(this).data("name");
+                let symbol = $(this).data("symbol");
+
+                let modal = $(this).data("target") === "#delete-modal" ? $("#delete-modal") : $("#updateMeasurementUnit");                
+
+                if (modal.is('#delete-modal')) {
+                    $("#deleteId").val(id);
+                    $("#delete-form").attr("action", "/Admin/MeasurementUnit/Delete");
+                }
+                else 
+                {
+                    $("#updateId").val(id);
+                    $("#updateName").val(name);
+                    $("#updateSymbol").val(symbol);
+                    $("#update-form").attr("action", "/Admin/MeasurementUnit/Update/{id}");
+                }
+            });
+
+        });
+    </script>
+}
+
+
+
+
+
